@@ -6,6 +6,8 @@ import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Period;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,10 +26,12 @@ public class PdfService {
 
   private String parseTemplate(Employee employee) {
     CompanyConf companyConf = new CompanyConf();
-    log.info("Employee: {}", employee.getRegistrationNumber());
+    Period period = Period.between(employee.getBirthDate(), LocalDate.now());
+    int years = period.getYears();
 
     Context context = new Context();
     context.setVariable("employee", employee);
+    context.setVariable("age", years);
     context.setVariable("company", companyConf);
 
     return templateEngine.process("employee_pdf_template", context);

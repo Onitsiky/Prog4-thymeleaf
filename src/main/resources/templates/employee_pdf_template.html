@@ -59,7 +59,6 @@
         footer {
             border-top: 2px solid black;
             position: absolute;
-            bottom: 100px;
             left: 0;
             width: 100%;
         }
@@ -101,12 +100,12 @@
             <span>Prénoms: </span>
             <span th:text="${employee.firstName}"></span><br/>
             <span>Âge: </span>
-            <span th:text="${employee.id}"></span><br/>
+            <span th:text="${age}"></span><br/>
             <span>Date d'embauche: </span>
             <span th:text="${employee.entranceDate}"></span><br/>
             <span>Date de départ: </span>
             <span th:text="${employee.departureDate}"></span><br/>
-            <span>Numéro CNAPS</span>
+            <span>Numéro CNAPS: </span>
             <span th:text="${employee.cnaps}"></span><br/>
         </div>
     </div>
