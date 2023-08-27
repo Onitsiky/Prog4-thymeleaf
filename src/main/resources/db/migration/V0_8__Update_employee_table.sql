@@ -1,0 +1,1 @@
+alter table "employee" add column if not exists salary float not null default 0;

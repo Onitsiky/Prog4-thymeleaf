@@ -51,6 +51,7 @@ public class Employee implements Serializable {
     private LocalDate birthDate;
     private LocalDate entranceDate;
     private LocalDate departureDate;
+    private Double salary;
 
     private Integer childrenNumber;
 
