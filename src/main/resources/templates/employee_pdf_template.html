@@ -1,125 +1,143 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        * {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            margin-bottom: 500px;
+        }
+
+        .emp-info-block {
+            width: 100%;
+            position: relative;
+            height: 300px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .emp-info-image {
+            height: 220px;
+            width: 220px;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+        }
+
+        .footer-content-image {
+            height: 100px;
+            width: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .emp-info-text {
+            position: absolute;
+            top: 0;
+            right: 50px;
+        }
+
+        .emp-info-text-title {
+            width: 100%;
+            padding-bottom: 20px;
+            text-align: center;
+        }
+
+        footer {
+            border-top: 2px solid black;
+            position: absolute;
+            bottom: 100px;
+            left: 0;
+            width: 100%;
+        }
+
+        .footer-block {
+            padding: 20px;
+        }
+        .footer-content-text-1 {
+            position: absolute;
+            top: 0;
+            left: 30%;
+        }
+
+        .footer-content-text-2 {
+            position: absolute;
+            top: 0;
+            right: 100px;
+        }
+
+        .footer div p {
+            padding-bottom: 20px;
+        }
+        .employee-info p {
+            padding-bottom: 10px;
+        }
+    </style>
     <title>Employee</title>
 </head>
-<style>
-    html, body {
-        height: 100%;
-    }
-    body {
-        margin: 20px 30px 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-size: 10px;
-        font-family: Helvetica, serif;
-        display: flex;
-        flex-direction: column;
-    }
-    main {
-        flex: 1; /* Let the main content take remaining space */
-    }
-
-    .emp-info-block {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-    }
-
-    .emp-info-image {
-        border: 2px solid black;
-        width: 20vw;
-        height: 35vh;
-        margin-right: 15%;
-    }
-
-    .emp-info-text {
-        width: 50vw;
-        position: relative;
-    }
-
-    .emp-info-text-title {
-        text-align: center;
-    }
-    body span {
-        font-size: 20px;
-        font-weight: normal;
-    }
-    .salary-info-block {
-        margin-top: 60px;
-    }
-
-    .salary-info-element {
-        margin-top: 30px;
-        margin-left: 50px;
-    }
-
-    footer {
-        padding: 20px 0;
-        border-top: 2px solid black;
-    }
-
-    .footer-block {
-        display: flex;
-        flex-direction: row;
-    }
-    .footer-content-image{
-        width: 30vw;
-    }
-    .footer-content-text-1{
-        width: 30vw;
-        font-size: 10px;
-        position: relative;
-    }
-
-    .footer-content-text-2 {
-        width: 30vw;
-    }
-    footer span{
-        font-size: 17px;
-    }
-</style>
 <body>
 <main>
     <div class="emp-info-block">
-        <div class="emp-info-image">
-            <img th:src="${image}" alt="Image de l'employée">
-        </div>
+            <img class="emp-info-image" th:src="${employee.image}" alt="Image de l'employée" src="#"/>
         <div class="emp-info-text">
             <h1 class="emp-info-text-title">FICHE EMPLOYÉ</h1>
-            <span th:text="Numéro matricule':' ${matricule}"></span><br/>
-            <span th:text="Noms':' ${noms}"></span><br/>
-            <span th:text="Prénoms':' ${prenoms}"></span><br/>
-            <span th:text="Âge':' ${age}"></span><br/>
-            <span th:text="Date d''embauche':' ${entree}"></span><br/>
-            <span th:text="Date de départ':' ${depart}"></span><br/>
-            <span th:text="Numéro CNAPS':' ${cnaps}"></span><br/>
+            <span>Numéro matricule: </span>
+            <span th:text="${employee.registrationNumber}"></span><br/>
+            <span>Noms: </span>
+            <span th:text="${employee.lastName}"></span><br/>
+            <span>Prénoms: </span>
+            <span th:text="${employee.firstName}"></span><br/>
+            <span>Âge: </span>
+            <span th:text="${employee.id}"></span><br/>
+            <span>Date d'embauche: </span>
+            <span th:text="${employee.entranceDate}"></span><br/>
+            <span>Date de départ: </span>
+            <span th:text="${employee.departureDate}"></span><br/>
+            <span>Numéro CNAPS</span>
+            <span th:text="${employee.cnaps}"></span><br/>
         </div>
     </div>
     <div class="salary-info-block">
         <span>Informations sur le salaire</span>
         <div class="salary-info-element">
-            <span th:text="Salaire brute actuel':' ${salaire} Ariary/mois"></span>
+            <span>Salaire brute actuel: </span>
+            <span th:text="${employee.id}"></span>
+            <span> Ariary/mois</span>
         </div>
     </div>
 </main>
 </body>
 <footer>
     <div class="footer-block">
-        <div class="footer-content-image">
-            <img th:src="${logo}" alt="Logo de l'entreprise">
-        </div>
+            <img class="footer-content-image" th:src="${company.logo}" alt="Logo de l'entreprise" src="#"/>
         <div class="footer-content-text-1">
-            <span th:text="${nom_entreprise}"></span><br>
-            <span th:text="NIF':' ${nif}"></span><br>
-            <span th:text="STAT':' ${stat}"></span><br>
+            <span th:text="${company.name}"></span><br/>
+            <span>NIF: </span>
+            <span th:text="${company.taxIdentity.nif}"></span><br/>
+            <span>STAT: </span>
+            <span th:text="${company.taxIdentity.stat}"></span><br/>
         </div>
         <div class="footer-content-text-2">
-            <span th:text="${adresse_entreprise}"></span><br>
-            <span th:text="Numéro de téléphone':' ${telephone_entreprise}"></span><br>
-            <span th:text="Email':' ${email_entreprise}"></span><br>
+            <span th:text="${company.address}"></span><br/>
+            <span>Numéro de téléphone: </span>
+           <div th:each="phone: ${company.phones}">
+               <span th:text="${phone.value}"></span><br/>
+           </div>
+            <span>Email: </span>
+            <span th:text="${company.email}"></span><br/>
         </div>
     </div>
 </footer>

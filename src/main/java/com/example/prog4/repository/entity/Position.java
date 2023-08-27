@@ -20,7 +20,6 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "\"position\"")
 @EqualsAndHashCode
-@ToString
 public class Position {
     @Id
     @GeneratedValue(strategy = IDENTITY)

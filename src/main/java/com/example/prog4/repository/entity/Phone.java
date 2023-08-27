@@ -23,7 +23,6 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "\"phone\"")
 @EqualsAndHashCode
-@ToString
 public class Phone {
     @Id
     @GeneratedValue(strategy = IDENTITY)

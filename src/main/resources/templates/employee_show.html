@@ -84,6 +84,11 @@
             <p th:text="${position.name}" class="form-control show-fields"></p>
         </div>
     </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+        <a th:href="'/server/employee/pdf/'+*{employee.id}">
+            <button class="btn btn-primary">Export Pdf</button>
+        </a>
+    </div>
 </div>
 
 <footer th:replace="~{components/navbar.html :: footer}"></footer>
