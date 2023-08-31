@@ -4,6 +4,7 @@ import com.example.prog4.controller.mapper.EmployeeMapper;
 import com.example.prog4.controller.validator.EmployeeValidator;
 import com.example.prog4.model.Employee;
 import com.example.prog4.model.EmployeeFilter;
+import com.example.prog4.model.enums.AgeType;
 import com.example.prog4.service.CSVUtils;
 import com.example.prog4.service.EmployeeService;
 import com.example.prog4.service.PdfService;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @AllArgsConstructor
@@ -61,9 +63,9 @@ public class EmployeeController {
         return "redirect:/employee/list";
     }
 
-    @GetMapping("/pdf/{eId}")
-    public ResponseEntity<byte[]> getPdfFile(@PathVariable String eId) {
-        byte[] file = pdfService.generatePdf(eId);
+    @GetMapping("/pdf/{eId}/{ageType}")
+    public ResponseEntity<byte[]> getPdfFile(@PathVariable String eId, @PathVariable AgeType ageType) {
+        byte[] file = pdfService.generatePdf(eId, ageType);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
         headers.setContentDispositionFormData("attachement", eId + ".pdf");

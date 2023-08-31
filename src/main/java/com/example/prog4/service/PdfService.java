@@ -1,6 +1,8 @@
 package com.example.prog4.service;
 
 import com.example.prog4.config.CompanyConf;
+import com.example.prog4.model.enums.AgeType;
+import com.example.prog4.model.exception.BadRequestException;
 import com.example.prog4.repository.entity.Employee;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,10 +26,9 @@ public class PdfService {
   private final EmployeeService service;
   private final TemplateEngine templateEngine;
 
-  private String parseTemplate(Employee employee) {
+  private String parseTemplate(Employee employee, AgeType ageType) {
     CompanyConf companyConf = new CompanyConf();
-    Period period = Period.between(employee.getBirthDate(), LocalDate.now());
-    int years = period.getYears();
+    int years = calculateEmployeeYear(employee, ageType);
 
     Context context = new Context();
     context.setVariable("employee", employee);
@@ -37,9 +38,19 @@ public class PdfService {
     return templateEngine.process("employee_pdf_template", context);
   }
 
-  public byte[] generatePdf(String id) {
+  private static int calculateEmployeeYear(Employee employee, AgeType ageType) {
+    if(ageType.equals(AgeType.BIRTHDAY)) {
+      Period period = Period.between(employee.getBirthDate(), LocalDate.now());
+      return period.getYears();
+    } else if(ageType.equals(AgeType.YEAR_ONLY)) {
+      return LocalDate.now().getYear() - employee.getBirthDate().getYear();
+    }
+    throw new BadRequestException("The age type entered is not valid. Possible values are: \"YEAR_ONLY\" or \"BIRTHDAY\".");
+  }
+
+  public byte[] generatePdf(String id, AgeType ageType) {
     Employee employee = service.getOne(id);
-    String htmlTemplate = parseTemplate(employee);
+    String htmlTemplate = parseTemplate(employee, ageType);
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     ITextRenderer renderer = new ITextRenderer();
 
